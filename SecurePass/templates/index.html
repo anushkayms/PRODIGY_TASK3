@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SecurePass — Password Security Analyzer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="scanlines" aria-hidden="true"></div>
+
+<main class="page">
+
+  <header class="hero">
+    <div class="hero-top">
+      <div class="brand">
+        <span class="brand-mark">◆</span>
+        <div>
+          <h1>SECUREPASS</h1>
+          <p class="subtitle">Password Security Analyzer</p>
+        </div>
+      </div>
+      <div class="status-pill">
+        <span class="status-dot"></span>
+        SYSTEM STATUS: <strong>ONLINE</strong>
+      </div>
+    </div>
+    <p class="tagline">Analyze. Detect. Strengthen.</p>
+  </header>
+
+  <section class="panel input-panel">
+    <h2 class="panel-title">Check Your Password</h2>
+
+    <div class="input-row">
+      <div class="password-field">
+        <input
+          type="password"
+          id="password-input"
+          placeholder="Enter a password to analyze"
+          autocomplete="new-password"
+          spellcheck="false"
+        />
+        <button type="button" id="toggle-visibility" class="icon-btn" aria-label="Show password">
+          <svg id="eye-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+          <svg id="eye-closed" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="display:none">
+            <path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-7 0-11-7-11-7a20.6 20.6 0 0 1 5.06-5.94M9.9 4.24A10.4 10.4 0 0 1 12 4c7 0 11 7 11 7a20.7 20.7 0 0 1-2.16 3.19M14.12 14.12a3 3 0 1 1-4.24-4.24"/>
+            <line x1="1" y1="1" x2="23" y2="23"/>
+          </svg>
+        </button>
+      </div>
+      <button type="button" id="analyze-btn" class="analyze-btn">
+        Analyze Password
+      </button>
+    </div>
+
+    <p id="form-message" class="form-message" role="status"></p>
+
+    <div id="scan-sequence" class="scan-sequence" hidden>
+      <p id="scan-line" class="scan-line"></p>
+    </div>
+  </section>
+
+  <footer class="privacy-notice">
+    <span class="lock-icon">🔒</span>
+    Your password is analyzed in real time and is never stored, logged, or saved.
+  </footer>
+
+  <section id="results" class="results" hidden>
+
+    <div class="panel">
+      <h2 class="panel-title">Security Analysis</h2>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <span class="stat-label">Security Score</span>
+          <span class="stat-value"><span id="score-value">0</span><span class="stat-unit">/100</span></span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Password Strength</span>
+          <span class="stat-value" id="strength-value">—</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Risk Level</span>
+          <span class="stat-value" id="risk-value">—</span>
+        </div>
+      </div>
+
+      <div class="meter-block">
+        <div class="meter-labels">
+          <span>Strength Meter</span>
+          <span id="meter-strength-label">—</span>
+        </div>
+        <div class="meter-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="meter-track" aria-valuenow="0">
+          <div class="meter-fill-bar" id="meter-fill"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2 class="panel-title">Security Checks</h2>
+      <ul id="signals-list" class="signals-list"></ul>
+    </div>
+
+    <div class="panel">
+      <h2 class="panel-title">Recommendations</h2>
+      <ul id="recommendations-list" class="recommendations-list"></ul>
+    </div>
+
+  </section>
+
+</main>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
